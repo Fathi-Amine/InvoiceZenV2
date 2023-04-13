@@ -1,5 +1,5 @@
 <template>
-    <div class="w-[200px] bg-theme-primary rounded-l-lg text-clr-primary py-4 px-2">
+    <div class="w-[200px] transition-all bg-theme-primary rounded-l-lg text-clr-primary py-4 px-2">
         <router-link :to="{ name: 'app.dashboard' }"
             class="flex items-center hover:bg-clr-primary hover:text-theme-primary py-1 px-3 rounded">
             <span class="mr-2">
@@ -7,7 +7,7 @@
             </span>
             <span class="text-sm">Dashboard</span>
         </router-link>
-        <router-link :to="{ name: 'app.dashboard' }"
+        <router-link :to="{ name: 'app.products' }"
             class="flex items-center hover:bg-clr-primary hover:text-theme-primary py-1 px-3 rounded">
             <span class="mr-2">
                 <ListBulletIcon class="w-5" />
