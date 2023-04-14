@@ -1,10 +1,10 @@
 import axiosClient from '../axios';
 
 export function getUser({ commit }) {
-    return axiosClient.get('/user').then(response => {
-        console.log(response)
-        commit('setUser', response.data)
-        return response
+    return axiosClient.get('/user').then(({ data }) => {
+        console.log(data)
+        commit('setUser', data)
+        return data
     })
 }
 
