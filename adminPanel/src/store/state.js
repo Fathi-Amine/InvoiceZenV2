@@ -4,6 +4,10 @@ const store = {
         data: {
 
         }
+    },
+    products: {
+        loading: false,
+        data: []
     }
 }
 
