@@ -16,6 +16,6 @@ class Product extends Model
 
     public function section()
     {
-        return $this->belongsTo(Sections::class);
+        return $this->belongsTo(Section::class);
     }
 }

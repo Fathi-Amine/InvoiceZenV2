@@ -18,7 +18,7 @@ class ProductResource extends JsonResource
             'id' => $this->id,
             'product_name' => $this->product_name,
             'desctiption' => $this->description,
-            'section' => $this->section->pluck('name'),
+            'section' => $this->section->name,
             'created_at' => (new \DateTime($this->created_at))->format('Y-m-d H:i:s'),
             'updated_at' => (new \DateTime($this->updated_at))->format('Y-m-d H:i:s'),
         ];
