@@ -25,11 +25,16 @@ export function logout({ commit }) {
 }
 
 
-export function getProducts({ commit }, { url = null, search = "", perPage = 5 }) {
+export function getProducts({ commit }, { url = null, search = "", perPage = 5, sort_field, sort_direction }) {
     commit('setProducts', [true])
     url = url || '/product'
     return axiosClient.get(url, {
-        params: { search, per_page: perPage }
+        params: {
+            search,
+            per_page: perPage,
+            sort_field,
+            sort_direction
+        }
     })
         .then(response => {
             commit('setProducts', [false, response.data])
