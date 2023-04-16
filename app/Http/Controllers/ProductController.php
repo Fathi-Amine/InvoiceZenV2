@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Http\Requests\ProductRequest;
 use App\Http\Resources\ProductListResource;
 use App\Http\Resources\ProductResource;
+use App\Models\Section;
 
 class ProductController extends Controller
 {
@@ -67,5 +68,11 @@ class ProductController extends Controller
         $product->delete();
 
         return response()->noContent();
+    }
+
+    public function getSections()
+    {
+
+        return Section::all();
     }
 }

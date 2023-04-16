@@ -14,6 +14,9 @@ const store = {
         page: 1,
         limit: null,
         total: null
+    },
+    sections: {
+        data: [],
     }
 }
 

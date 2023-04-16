@@ -16,6 +16,7 @@ export function setToken(state, token) {
 
 export function setProducts(state, [loading, response = null]) {
     if (response) {
+        console.log(response);
         state.products = {
             data: response.data,
             links: response.meta.links,
@@ -27,4 +28,9 @@ export function setProducts(state, [loading, response = null]) {
         }
     }
     state.products.loading = loading;
+}
+
+export function setSections(state, sections) {
+    console.log(sections)
+    state.sections.data = sections;
 }

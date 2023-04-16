@@ -24,7 +24,7 @@ class ProductRequest extends FormRequest
         return [
             //
 
-            'product_name' => ['required', 'max:5'],
+            'product_name' => ['required'],
             'description' => ['nullable', 'string'],
             'section_id' => ['required', 'integer', 'exists:sections,id']
         ];

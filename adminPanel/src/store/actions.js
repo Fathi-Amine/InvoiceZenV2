@@ -42,3 +42,20 @@ export function getProducts({ commit }, { url = null, search = "", perPage = 5, 
             commit('setProducts', [false])
         })
 }
+
+export function getSections({ commit }) {
+    return axiosClient.get('/sections')
+        .then(response => {
+            commit('setSections', response.data)
+        })
+}
+
+export function createProduct({ commit }, product) {
+    return axiosClient.post('/product', product)
+}
+
+export function updateProduct({ commit }, product) {
+    const id = product.id;
+    product._method = 'PUT';
+    return axiosClient.post(`/product/${id}`, product)
+}

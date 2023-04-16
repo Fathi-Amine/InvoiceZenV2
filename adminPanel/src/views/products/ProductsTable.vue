@@ -39,8 +39,9 @@
             <tbody v-else>
                 <tr v-for="product of products.data">
                     <td class="border-b p-2">{{ product.id }}</td>
-                    <td class="border-b p-2 max-w-[200px] whitespace-nowrap overflow-hidden text-ellipsis">{{
-                        product.product_name }}</td>
+                    <td class="border-b p-2 max-w-[200px] whitespace-nowrap overflow-hidden text-ellipsis"
+                        :data-section-id="product.section_id">{{
+                            product.product_name }}</td>
                     <td class="border-b p-2">{{ product.updated_at }}</td>
                 </tr>
             </tbody>
@@ -81,7 +82,7 @@ const sortDirection = ref("desc");
 const products = computed(() => store.state.products);
 
 onMounted(() => {
-    getProducts()
+    getProducts();
 })
 
 function getProducts(url = null) {
@@ -93,6 +94,8 @@ function getProducts(url = null) {
         perPage: perPage.value
     })
 }
+
+
 
 function getForPage(ev, link) {
     if (!link.url || link.active) {
