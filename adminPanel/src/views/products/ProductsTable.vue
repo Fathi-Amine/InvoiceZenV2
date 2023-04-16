@@ -1,11 +1,4 @@
 <template>
-    <div class="flex items-center justify-between mb-3">
-        <h1 class="text-3xl font-semibold">Products</h1>
-        <button type="submit"
-            class="flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-clr-primary bg-theme-primary hover:bg-indigo-500">
-            Add Product
-        </button>
-    </div>
     <div class="bg-clr-primary p-4 rounded-lg shadow">
         <div class="flex justify-between border-b-2 pb-3">
             <div class="flex items-center">
@@ -75,11 +68,11 @@
     </div>
 </template>
 <script setup>
-import Spinner from '../components/core/Spinner.vue';
+import Spinner from '../../components/core/Spinner.vue';
 import { computed, onMounted, ref } from 'vue';
-import store from '../store/index';
-import { PRODUCTS_PER_PAGE } from '../constants'
-import ThCell from '../components/core/table/ThCell.vue';
+import store from '../../store/index';
+import { PRODUCTS_PER_PAGE } from '../../constants'
+import ThCell from '../../components/core/table/ThCell.vue';
 
 const perPage = ref(PRODUCTS_PER_PAGE);
 const search = ref("");
