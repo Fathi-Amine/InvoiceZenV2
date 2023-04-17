@@ -14,14 +14,7 @@
             </span>
             <span class="text-sm">Products</span>
         </router-link>
-        <router-link :to="{ name: 'app.dashboard' }"
-            class="flex items-center hover:bg-clr-primary hover:text-theme-primary py-1 px-3 rounded">
-            <span class="mr-2">
-                <RectangleStackIcon class="w-5" />
-            </span>
-            <span class="text-sm">Sections</span>
-        </router-link>
-        <router-link :to="{ name: 'app.dashboard' }"
+        <router-link :to="{ name: 'app.invoices' }"
             class="flex items-center hover:bg-clr-primary hover:text-theme-primary py-1 px-3 rounded">
             <span class="mr-2">
                 <DocumentTextIcon class="w-5" />

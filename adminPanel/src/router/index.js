@@ -1,7 +1,8 @@
 import { createRouter, createWebHistory } from "vue-router";
 import AppLayout from '../components/AppLayout.vue';
 import Dashboard from '../views/Dashboard.vue';
-import Products from '../views/products/Products.vue'
+import Products from '../views/products/Products.vue';
+import Invoices from '../views/invoices/Invoices.vue';
 import Login from '../views/Login.vue';
 import RequestPasswordReset from '../views/RequestPasswordReset.vue';
 import ResetPassword from '../views/ResetPassword.vue';
@@ -27,7 +28,12 @@ const routes = [
                 path: 'products',
                 name: 'app.products',
                 component: Products
-            }
+            },
+            {
+                path: 'invoices',
+                name: 'app.invoices',
+                component: Invoices
+            },
         ]
     }
     ,
