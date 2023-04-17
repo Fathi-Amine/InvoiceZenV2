@@ -27,6 +27,7 @@
                         :sort-direction="sortDirection" @click="sortProduct">Product name</ThCell>
                     <ThCell class="border-b-2 p-2 text-left" field="updated_at" :sort-field="sortField"
                         :sort-direction="sortDirection" @click="sortProduct">Last Updated at</ThCell>
+                    <ThCell class="border-b-2 p-2 text-left" field="actions">Operations</ThCell>
                 </tr>
             </thead>
             <tbody v-if="products.loading">
@@ -43,6 +44,48 @@
                         :data-section-id="product.section_id">{{
                             product.product_name }}</td>
                     <td class="border-b p-2">{{ product.updated_at }}</td>
+                    <td class="border-b p-2">
+                        <Menu as="div" class="relative inline-block text-left">
+                            <div>
+                                <MenuButton
+                                    class="inline-flex justify-center w-full items-center rounded-full w-10 h-10 bg-black bg-opacity-0 text-sm font-medium text-white hover:bg-opacity-5 focus:bg-opacity-5 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+                                    <EllipsisVerticalIcon class="h-5 w-5 text-indigo-500" aria-hidden="true" />
+                                </MenuButton>
+                            </div>
+                            <transition enter-active-class="transition duration-100 ease-out"
+                                enter-from-class="transform scale-95 opacity-0"
+                                enter-to-class="transform scale-100 opacity-100"
+                                leave-active-class="transition duration-75 ease-in"
+                                leave-from-class="transform scale-100 opacity-100"
+                                leave-to-class="transform scale-95 opacity-0">
+                                <MenuItems
+                                    class="absolute z-10 right-0 mt-2 w-32 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                    <div class="px-1 py-1">
+                                        <MenuItem v-slot="{ active }">
+                                        <button :class="[
+                                            active ? 'bg-theme-primary text-clr-primary' : 'text-indigo-600',
+                                            'group flex w-full items-center rounded-md px-2 py-2 text-sm',
+                                        ]" @click="editProduct(product)">
+                                            <PencilIcon :active="active" class="mr-2 h-5 w-5 text-indigo-400"
+                                                aria-hidden="true" />
+                                            Edit
+                                        </button>
+                                        </MenuItem>
+                                        <MenuItem v-slot="{ active }">
+                                        <button :class="[
+                                            active ? 'bg-theme-primary text-clr-primary' : 'text-red-500',
+                                            'group flex w-full items-center rounded-md px-2 py-2 text-sm',
+                                        ]" @click="deleteProduct(product)">
+                                            <TrashIcon :active="active" class="mr-2 h-5 w-5 text-indigo-400"
+                                                aria-hidden="true" />
+                                            Delete
+                                        </button>
+                                        </MenuItem>
+                                    </div>
+                                </MenuItems>
+                            </transition>
+                        </Menu>
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -74,12 +117,15 @@ import { computed, onMounted, ref } from 'vue';
 import store from '../../store/index';
 import { PRODUCTS_PER_PAGE } from '../../constants'
 import ThCell from '../../components/core/table/ThCell.vue';
+import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue';
+import { EllipsisVerticalIcon, PencilIcon, TrashIcon } from '@heroicons/vue/20/solid'
 
 const perPage = ref(PRODUCTS_PER_PAGE);
 const search = ref("");
 const sortField = ref("updated_at");
 const sortDirection = ref("desc");
 const products = computed(() => store.state.products);
+const emit = defineEmits(['clickEdit'])
 
 onMounted(() => {
     getProducts();
@@ -116,6 +162,20 @@ function sortProduct(field) {
         sortDirection.value = 'asc';
     }
     getProducts();
+}
+
+function editProduct(product) {
+    emit('clickEdit', product)
+}
+
+function deleteProduct(product) {
+    if (!confirm('Are you sure you want to delete the product?')) {
+        return
+    }
+    store.dispatch('deleteProduct', product.id)
+        .then(() => {
+            store.dispatch('getProducts')
+        })
 }
 </script>
 <style scoped></style>
