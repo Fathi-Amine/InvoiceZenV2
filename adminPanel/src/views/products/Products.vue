@@ -1,5 +1,5 @@
 <template>
-    <div class="flex items-center justify-between mb-3">
+    <div class="flex items-center justify-between mb-3 animate-fade-in-down">
         <h1 class="text-3xl font-semibold">Products</h1>
         <button type="submit" @click="showProductModal"
             class="flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-clr-primary bg-theme-primary hover:bg-indigo-500">

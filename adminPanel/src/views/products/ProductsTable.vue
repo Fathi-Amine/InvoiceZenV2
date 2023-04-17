@@ -38,7 +38,8 @@
                 </tr>
             </tbody>
             <tbody v-else>
-                <tr v-for="product of products.data">
+                <tr v-for="(product, index) of products.data" class="animate-fade-in-down"
+                    :style="{ 'animation-delay': `${index * 0.2}s` }">
                     <td class="border-b p-2">{{ product.id }}</td>
                     <td class="border-b p-2 max-w-[200px] whitespace-nowrap overflow-hidden text-ellipsis"
                         :data-section-id="product.section_id">{{
