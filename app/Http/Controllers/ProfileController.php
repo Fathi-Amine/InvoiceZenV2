@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Enums\AddressType;
+use App\Http\Requests\ProfileRequest;
 use App\Models\Country;
 use App\Models\CustomerAddress;
 use App\Http\Requests\ProfileUpdateRequest;
@@ -38,6 +39,38 @@ class ProfileController extends Controller
     /**
      * Update the user's profile information.
      */
+
+
+    public function store(ProfileRequest $request)
+    {
+        $customerData = $request->validated();
+        $invoicingData = $customerData['invoicing'];
+        $billingData = $customerData['billing'];
+
+        $user = $request->user();
+        $customer = $user->customer;
+
+        $customer->update($customerData);
+
+        if ($customer->invoicingAddress) {
+            $customer->invoicingAddress->update($invoicingData);
+        } else {
+            $invoicingData['customer_id'] = $customer->user_id;
+            $invoicingData['type'] = AddressType::Invoicing->value;
+            CustomerAddress::create($invoicingData);
+        }
+        if ($customer->billingAddress) {
+            $customer->billingAddress->update($billingData);
+        } else {
+            $billingData['customer_id'] = $customer->user_id;
+            $billingData['type'] = AddressType::Billing->value;
+            CustomerAddress::create($billingData);
+        }
+
+        $request->session()->flash('flash_message', 'Profile was successfully updated.');
+
+        return redirect()->route('profile');
+    }
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
         $request->user()->fill($request->validated());
