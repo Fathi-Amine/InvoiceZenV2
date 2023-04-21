@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\InvoiceStatus;
+use App\Enums\PaymentStatus;
 use App\Models\Invoice;
+use App\Models\Payment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -34,6 +37,23 @@ class CheckoutController extends Controller
             'cancel_url' => route('checkout.failure', [], true),
           ]);
 
+          $latest_invoice->update([
+            'status' => InvoiceStatus::Processing,
+            'updated_by' => $user->id,
+          ]);
+
+          $payment_data = [
+            'invoice_id'=> $latest_invoice->id,
+            'amount'=> $latest_invoice->total,
+            'status'=>PaymentStatus::Pending,
+            'type'=>'cc',
+            'created_by'=> $user->id,
+            'updated_by'=> $user->id,
+            'session_id'=> $session->id
+          ];
+
+          $payment = Payment::create($payment_data);
+
           return redirect($session->url);
     }
 
@@ -41,10 +61,32 @@ class CheckoutController extends Controller
     {
       \Stripe\Stripe::setApiKey(getenv('STRIPE_SECRET_KEY'));
 
-      $session = \Stripe\Checkout\Session::retrieve($request->get('session_id'));
-      // dd($session);
-      // $customer = \Stripe\Customer::retrieve($session->customer);
+      
+      try {
+        $session_id = $request->get('session_id');
+        $session = \Stripe\Checkout\Session::retrieve($session_id);
+        if (!$session) {
+          return view('checkout.failure');
+        };
+
+        $payment = Payment::query()->where(['session_id'=>$session->id, 'status' => PaymentStatus::Pending])->get();
+
+        if(!$payment){
+          return view('checkout.failure');
+        }
+
+        $payment->update([
+          'status' => PaymentStatus::Paid,
+        ]);
+
+        $invoice = $payment->invoice;
+        $invoice->status = InvoiceStatus::Paid;
+        $invoice->update();
+        return view('checkout.success');
+      } catch (\Exception $e) {
+        
+        return view('checkout.failure');
+      }
      
-      return view('checkout.success');
     }
 }

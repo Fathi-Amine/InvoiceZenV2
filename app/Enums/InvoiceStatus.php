@@ -4,8 +4,10 @@ namespace App\Enums;
 
 
 
-enum AddressType: string
+enum InvoiceStatus: string
 {
-    case Unpaid = 'unpaid';
+    case Draft = 'draft';
+    case Processing = 'processing';
     case Paid = 'paid';
+    case Completed = 'completed';
 }

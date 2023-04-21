@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use App\Models\User;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
@@ -20,6 +21,7 @@ return new class extends Migration
             $table->foreign('customer_id')->references('user_id')->on('customers')->onDelete('cascade');
             $table->unsignedBigInteger('product_id');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+            $table->string('status',45);
             // $table->unsignedBigInteger('section_id');
             // $table->foreign('section_id')->references('id')->on('sections')->onDelete('cascade');
             $table->decimal('gross_price');
@@ -29,6 +31,8 @@ return new class extends Migration
             $table->decimal('total', 8, 2);
             $table->text('note')->nullable();
             $table->date('payment_date')->nullable();
+            $table->foreignIdFor(User::class, 'created_by')->nullable();
+            $table->foreignIdFor(User::class, 'updated_by')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
