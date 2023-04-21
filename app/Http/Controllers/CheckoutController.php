@@ -30,10 +30,21 @@ class CheckoutController extends Controller
         $session = \Stripe\Checkout\Session::create([
             'line_items' => $line_items,
             'mode' => 'payment',
-            'success_url' => route('checkout.success', [], true),
+            'success_url' => route('checkout.success', [], true) . '?session_id={CHECKOUT_SESSION_ID}',
             'cancel_url' => route('checkout.failure', [], true),
           ]);
 
           return redirect($session->url);
+    }
+
+    public function success(Request $request)
+    {
+      \Stripe\Stripe::setApiKey(getenv('STRIPE_SECRET_KEY'));
+
+      $session = \Stripe\Checkout\Session::retrieve($request->get('session_id'));
+      // dd($session);
+      // $customer = \Stripe\Customer::retrieve($session->customer);
+     
+      return view('checkout.success');
     }
 }

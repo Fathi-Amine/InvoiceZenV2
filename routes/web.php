@@ -36,7 +36,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/profile/password-update', [ProfileController::class, 'passwordUpdate'])->name('profile_password.update');
     Route::get('/dashboard',[InvoiceController::class, 'index']);
     // Route::post('/checkout/{invoice}', [CheckoutController::class, 'checkoutOrder'])->name('cart.checkout-invoice');
-    Route::get('/checkout/success/:sessionId', [CheckoutController::class, 'success'])->name('checkout.success');
+    Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
     Route::get('/checkout/failure', [CheckoutController::class, 'failure'])->name('checkout.failure');
     Route::post('/checkout',[CheckoutController::class, 'checkout'])->name('invoice.checkout');
 });
