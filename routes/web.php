@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -32,5 +34,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'view'])->name('profile');
     Route::post('/profile', [ProfileController::class, 'store',])->name('profile.update');
     Route::post('/profile/password-update', [ProfileController::class, 'passwordUpdate'])->name('profile_password.update');
+    Route::get('/dashboard',[InvoiceController::class, 'index']);
+    // Route::post('/checkout/{invoice}', [CheckoutController::class, 'checkoutOrder'])->name('cart.checkout-invoice');
+    Route::get('/checkout/success/:sessionId', [CheckoutController::class, 'success'])->name('checkout.success');
+    Route::get('/checkout/failure', [CheckoutController::class, 'failure'])->name('checkout.failure');
+    Route::post('/checkout',[CheckoutController::class, 'checkout'])->name('invoice.checkout');
 });
 require __DIR__ . '/auth.php';

@@ -33,4 +33,9 @@ class Customer extends Model
     {
         return $this->_getAddresses()->where('type', '=', AddressType::Billing->value);
     }
+
+    public function invoices()
+    {
+        return $this->hasMany(Invoice::class, 'customer_id', 'user_id');
+    }
 }

@@ -11,7 +11,14 @@
                 <div class="p-6 text-gray-900">
                     {{ __("You're logged in!") }}
                 </div>
+                <form action="{{ route('invoice.checkout') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="btn-primary w-full py-3 text-lg">
+                        Proceed to Checkout
+                    </button>
+                </form>
             </div>
         </div>
     </div>
 </x-app-layout>
+

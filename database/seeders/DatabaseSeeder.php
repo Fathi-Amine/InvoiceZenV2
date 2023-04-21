@@ -18,7 +18,8 @@ class DatabaseSeeder extends Seeder
             AdminUserSeeder::class,
             SectionSeeder::class,
             ProductSeeder::class,
-            CountrySeeder::class
+            CountrySeeder::class,
+            InvoiceSeeder::class
         ]);
         // \App\Models\User::factory(10)->create();
 
