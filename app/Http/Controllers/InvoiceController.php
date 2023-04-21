@@ -10,7 +10,7 @@ class InvoiceController extends Controller
 {
     //
 
-    public function index()
+    public function indexLatest()
     {
         //
         $user = Auth::user();

@@ -65,24 +65,26 @@ class CheckoutController extends Controller
       try {
         $session_id = $request->get('session_id');
         $session = \Stripe\Checkout\Session::retrieve($session_id);
+        // dd($session);
         if (!$session) {
           return view('checkout.failure');
         };
 
-        $payment = Payment::query()->where(['session_id'=>$session->id, 'status' => PaymentStatus::Pending])->get();
+        $payment = Payment::query()->where(['session_id'=>$session->id, 'status' => PaymentStatus::Pending])->first();
+       
 
         if(!$payment){
           return view('checkout.failure');
         }
 
-        $payment->update([
-          'status' => PaymentStatus::Paid,
-        ]);
-
+        $payment->status = PaymentStatus::Paid;
+        $payment->update();
         $invoice = $payment->invoice;
         $invoice->status = InvoiceStatus::Paid;
         $invoice->update();
+        
         return view('checkout.success');
+
       } catch (\Exception $e) {
         
         return view('checkout.failure');
