@@ -91,4 +91,46 @@ class CheckoutController extends Controller
       }
      
     }
+
+    public function failure(Request $request)
+    {
+        return view('checkout.failure', ['message' => ""]);
+    }
+
+    public function checkoutInvoice(Invoice $invoice, Request $request)
+    {
+
+        \Stripe\Stripe::setApiKey(getenv('STRIPE_SECRET_KEY'));
+
+        $line_items = [];
+        $line_items[] = [
+          'price_data' => [
+            'currency' => 'usd',
+            'product_data' => [
+              'name' => $invoice->product->product_name,
+            ],
+            'unit_amount_decimal' => $invoice->total * 100,
+          ],
+          'quantity' => 1,
+        ];
+        $session = \Stripe\Checkout\Session::create([
+            'line_items' => $line_items,
+            'mode' => 'payment',
+            'success_url' => route('checkout.success', [], true) . '?session_id={CHECKOUT_SESSION_ID}',
+            'cancel_url' => route('checkout.failure', [], true),
+          ]);
+
+//         $session = \Stripe\Checkout\Session::create([
+//             'line_items' => $lineItems,
+//             'mode' => 'payment',
+//             'success_url' => route('checkout.success', [], true) . '?session_id={CHECKOUT_SESSION_ID}',
+//             'cancel_url' => route('checkout.failure', [], true),
+//         ]);
+
+//         $invoice->payment->session_id = $session->id;
+//         $invoice->payment->save();
+
+
+//         return redirect($session->url);
+    }
 }

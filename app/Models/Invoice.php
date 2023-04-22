@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\InvoiceStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -17,5 +18,10 @@ class Invoice extends Model
 
     public function product(){
         return $this->belongsTo(Product::class);
+    }
+
+    public function isPaid()
+    {
+        return $this->status === InvoiceStatus::Paid->value;
     }
 }

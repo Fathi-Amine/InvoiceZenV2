@@ -36,28 +36,14 @@
                                 My Profile
                             </a>
                         </li>
-                        <li>
-                            <a href="/src/watchlist.html" class="flex items-center px-3 py-2 hover:bg-slate-900">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                                </svg>
-                                Watchlist
-
-                                <small x-show="$store.header.watchlistItems" x-transition
-                                    x-text="$store.header.watchlistItems"
-                                    class="py-[2px] px-[8px] rounded-full bg-red-500"></small>
-                            </a>
-                        </li>
                         <li class="hover:bg-slate-900">
-                            <a href="/src/orders.html" class="flex items-center px-3 py-2 hover:bg-slate-900">
+                            <a href="{{route('invoices.index')}}" class="flex items-center px-3 py-2 hover:bg-slate-900">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none"
                                     viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                     <path stroke-linecap="round" stroke-linejoin="round"
                                         d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                                 </svg>
-                                My Orders
+                                My Invoices
                             </a>
                         </li>
                         <li class="hover:bg-slate-900">
@@ -133,30 +119,13 @@
                             </a>
                         </li>
                         <li>
-                            <a href="/src/watchlist.html"
-                                class="flex items-center justify-between px-3 py-2 hover:bg-slate-900">
-                                <div class="flex items-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                                    </svg>
-                                    Watchlist
-                                </div>
-
-                                <small x-show="$store.header.watchlistItems" x-transition
-                                    x-text="$store.header.watchlistItems"
-                                    class="py-[2px] px-[8px] rounded-full bg-red-500"></small>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/src/orders.html" class="flex px-3 py-2 hover:bg-slate-900">
+                            <a href="{{route('invoices.index')}}" class="flex px-3 py-2 hover:bg-slate-900">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none"
                                     viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                     <path stroke-linecap="round" stroke-linejoin="round"
                                         d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                                 </svg>
-                                My Orders
+                                My Invoices
                             </a>
                         </li>
                         <li>
