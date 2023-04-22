@@ -15,7 +15,13 @@ class InvoicesController extends Controller
     public function index()
     {
         //
-        return InvoiceListResource::collection(Invoice::query()->paginate(2));
+        $search = request('search', false);
+        $perPage = request('per_page', 5);
+        $query = Invoice::query();
+        if($search){
+            $query->where('serial_number', 'like', "%{$search}%")->orWhere('status', 'like', "%{$search}%");
+        }
+        return InvoiceListResource::collection($query->paginate($perPage));
     }
 
     /**

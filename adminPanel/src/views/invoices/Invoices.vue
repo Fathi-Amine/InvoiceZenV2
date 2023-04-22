@@ -19,9 +19,9 @@
                 </select>
             </div>
             <div>
-                <input v-model="search" @change="getProducts(null)"
+                <input v-model="search" @change="getInvoices(null)"
                     class="appearance-none relative block w-48 px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                    placeholder="Type to Search products">
+                    placeholder="Type to Search invoices">
             </div>
         </div>
         <Spinner v-if="invoices.loading"/>

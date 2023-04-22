@@ -72,7 +72,13 @@ export function deleteProduct({ commit }, id) {
 export function getInvoices({commit},{url=null,search = "", perPage = 5}){
     commit('setInvoices', [true])
     url = url || '/invoice'
-    return axiosClient.get(url)
+    return axiosClient.get(url,{
+        params: {
+            search,
+            per_page : perPage
+
+        }
+    })
     .then(res => {
         commit('setInvoices', [false, res.data])
     })
