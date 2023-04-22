@@ -101,7 +101,7 @@ class CheckoutController extends Controller
     {
 
         \Stripe\Stripe::setApiKey(getenv('STRIPE_SECRET_KEY'));
-
+        $user = Auth::user();
         $line_items = [];
         $line_items[] = [
           'price_data' => [
@@ -120,17 +120,24 @@ class CheckoutController extends Controller
             'cancel_url' => route('checkout.failure', [], true),
           ]);
 
-//         $session = \Stripe\Checkout\Session::create([
-//             'line_items' => $lineItems,
-//             'mode' => 'payment',
-//             'success_url' => route('checkout.success', [], true) . '?session_id={CHECKOUT_SESSION_ID}',
-//             'cancel_url' => route('checkout.failure', [], true),
-//         ]);
+          $invoice->update([
+            'status' => InvoiceStatus::Processing,
+            'updated_by' => $user->id,
+          ]);
 
-//         $invoice->payment->session_id = $session->id;
-//         $invoice->payment->save();
+          $payment_data = [
+            'invoice_id'=> $invoice->id,
+            'amount'=> $invoice->total,
+            'status'=>PaymentStatus::Pending,
+            'type'=>'cc',
+            'created_by'=> $user->id,
+            'updated_by'=> $user->id,
+            'session_id'=> $session->id
+          ];
 
+          $payment = Payment::create($payment_data);
 
-//         return redirect($session->url);
+          return redirect($session->url);
+
     }
 }
