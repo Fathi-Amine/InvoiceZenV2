@@ -67,3 +67,16 @@ export function updateProduct({ commit }, product) {
 export function deleteProduct({ commit }, id) {
     return axiosClient.delete(`/product/${id}`)
 }
+
+
+export function getInvoices({commit},{url=null,search = "", perPage = 5}){
+    commit('setInvoices', [true])
+    url = url || '/invoice'
+    return axiosClient.get(url)
+    .then(res => {
+        commit('setInvoices', [false, res.data])
+    })
+    .catch(() => {
+        commit('setInvoices', [false]);
+    })
+}

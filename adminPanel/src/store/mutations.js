@@ -34,3 +34,19 @@ export function setSections(state, sections) {
     console.log(sections)
     state.sections.data = sections;
 }
+
+export function setInvoices(state, [loading,response = null]){
+    if (response) {
+        state.invoices = {
+            data: response.data,
+            links: response.meta.links,
+            total: response.meta.total,
+            limit: response.meta.per_page,
+            from: response.meta.from,
+            to: response.meta.to,
+            page: response.meta.current_page,
+        }
+    }
+
+    state.products.loading = loading;
+}

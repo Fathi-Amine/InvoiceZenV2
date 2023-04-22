@@ -18,6 +18,7 @@ class InvoiceListResource extends JsonResource
             'id'=>$this->id,
             'serial_number'=>$this->serial_number,
             'due_date'=>$this->due_date,
+            'product_name' => $this->product->product_name,
             'product_id'=>$this->product_id,
             'status'=>$this->status,
             'total'=>$this->total,

@@ -17,6 +17,16 @@ const store = {
     },
     sections: {
         data: [],
+    },
+    invoices:{
+        loading: false,
+        data:[],
+        links: [],
+        from: null,
+        to: null,
+        page: 1,
+        limit: null,
+        total: null
     }
 }
 
