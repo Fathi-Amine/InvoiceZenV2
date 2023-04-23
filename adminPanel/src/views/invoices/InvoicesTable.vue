@@ -127,7 +127,7 @@ import ThCell from '../../components/core/table/ThCell.vue';
 import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue';
 import { EllipsisVerticalIcon, PencilIcon, TrashIcon } from '@heroicons/vue/20/solid'
 
-
+const emit = defineEmits(['clickEdit'])
 const perPage = ref(PRODUCTS_PER_PAGE);
 const search = ref("");
 const sortField = ref("updated_at");
@@ -167,6 +167,10 @@ function sortInvoice(field) {
         sortDirection.value = 'asc';
     }
     getInvoices();
+}
+
+function editInvoice(invoice){
+    emit('clickEdit',invoice)
 }
 
 function deleteInvoice(invoice){

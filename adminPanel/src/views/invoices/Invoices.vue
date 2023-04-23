@@ -6,14 +6,15 @@
             Add Invoice
         </button>
     </div>
-    <InvoicesTable />
-    <InvoiceModal v-model="showModal" :invoice="invoiceModel"/>
+    <InvoicesTable @click-edit="editInvoice"/>
+    <InvoiceModal v-model="showModal" :invoice="invoiceModel" @close="onModalClose"/>
 </template>
 
 <script setup>
 import InvoicesTable from "./InvoicesTable.vue";
 import InvoiceModal from "./InvoiceModal.vue";
 import { ref } from "vue";
+import store from "../../store";
 
 const showModal = ref(false);
 
@@ -37,6 +38,33 @@ const invoiceModel = ref({
 
 function showInvoiceModal(){
     showModal.value = true
+}
+
+function editInvoice(invoice){
+    store.dispatch('getInvoice', invoice.id)
+    .then(({data})=>{
+        invoiceModel.value = data
+        showInvoiceModal()
+    })
+}
+
+function onModalClose(){
+    invoiceModel.value = {
+        id: '',
+        serial_number: '',
+        invoice_Date: '',
+        due_date: '',
+        customer_id: '',
+        product_id: '',
+        status: '',
+        gross_price: '',
+        discount: '',
+        TVA:'',
+        TVA_rate: '',
+        total: '',
+        note: '',
+        payment_date: '',
+    }
 }
 </script>
 
