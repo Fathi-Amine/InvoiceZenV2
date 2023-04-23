@@ -48,5 +48,5 @@ export function setInvoices(state, [loading,response = null]){
         }
     }
 
-    state.products.loading = loading;
+    state.invoices.loading = loading;
 }

@@ -24,20 +24,31 @@
                     placeholder="Type to Search invoices">
             </div>
         </div>
-        <Spinner v-if="invoices.loading"/>
-        <template v-else>
             <table class="table-auto w-full">
                 <thead>
                     <tr>
-                        <th class="border-b-2 p-2 text-left">Serial</th>
-                        <th class="border-b-2 p-2 text-left">Due date</th>
-                        <th class="border-b-2 p-2 text-left">Product</th>
-                        <th class="border-b-2 p-2 text-left">Status</th>
-                        <th class="border-b-2 p-2 text-left">Total</th>
-                        <th class="border-b-2 p-2 text-left">Last Updated at</th>
+                        <ThCell class="border-b-2 p-2 text-left" field="serial_number" :sort-field="sortField"
+                        :sort-direction="sortDirection" @click="sortInvoice">Serial</ThCell>
+                        <ThCell class="border-b-2 p-2 text-left" field="due_date" :sort-field="sortField"
+                        :sort-direction="sortDirection" @click="sortInvoice">Due date</ThCell>
+                        <ThCell class="border-b-2 p-2 text-left" field="" :sort-field="sortField"
+                        :sort-direction="sortDirection">Product</ThCell>
+                        <ThCell class="border-b-2 p-2 text-left" field="status" :sort-field="sortField"
+                        :sort-direction="sortDirection" @click="sortInvoice">Status</ThCell>
+                        <ThCell class="border-b-2 p-2 text-left" field="total" :sort-field="sortField"
+                        :sort-direction="sortDirection" @click="sortInvoice">Total</ThCell>
+                        <ThCell class="border-b-2 p-2 text-left" field="updated_at" :sort-field="sortField"
+                        :sort-direction="sortDirection" @click="sortInvoice">Last Updated at</ThCell>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody  v-if="invoices.loading">
+                    <tr>
+                        <td colspan="6">
+                            <Spinner class="my-2" v-if="invoices.loading"/>
+                        </td>
+                    </tr>
+                </tbody>
+                <tbody v-else>
                     <tr v-for="invoice of invoices.data">
                         <td class="border-b p-2">{{ invoice.serial_number }}</td>
                         <td class="border-b p-2">{{ invoice.due_date }}</td>
@@ -48,7 +59,6 @@
                     </tr>
                 </tbody>
             </table>
-        </template>
         <div v-if="!invoices.loading" class="flex justify-between items-center mt-5">
             <span>
                 Showing from {{ invoices.from }} to {{ invoices.to }}
@@ -77,8 +87,11 @@ import { computed, onMounted, ref } from 'vue';
 import Spinner from '../../components/core/Spinner.vue';
 import store from '../../store';
 import { PRODUCTS_PER_PAGE } from '../../constants';
+import ThCell from '../../components/core/table/ThCell.vue';
 const perPage = ref(PRODUCTS_PER_PAGE);
 const search = ref("");
+const sortField = ref("updated_at");
+const sortDirection = ref("desc");
 
 const invoices = computed(()=> store.state.invoices);
 onMounted(()=>{
@@ -88,8 +101,8 @@ onMounted(()=>{
 function getInvoices (url = null){
     store.dispatch('getInvoices', {
         url,
-        // sort_field: sortField.value,
-        // sort_direction: sortDirection.value,
+        sort_field: sortField.value,
+        sort_direction: sortDirection.value,
         search: search.value,
         perPage: perPage.value
     })
@@ -100,6 +113,20 @@ function getForPage(ev, link) {
         return
     }
     getInvoices(link.url)
+}
+
+function sortInvoice(field) {
+    if (sortField.value === field) {
+        if (sortDirection.value === 'asc') {
+            sortDirection.value = 'desc'
+        } else {
+            sortDirection.value = 'asc'
+        }
+    } else {
+        sortField.value = field;
+        sortDirection.value = 'asc';
+    }
+    getInvoices();
 }
 </script>
 
