@@ -18,12 +18,12 @@ class CustomerAddressResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'first_name' => $this->customer->first_name,
-            'last_name' => $this->customer->last_name,
-            'email' => $this->email,
-            'phone'=>$this->phone,
-            'invoiceAddress'=>$this->customer->invoicingAddress,
-            'billingAddress'=>$this->customer->billingAddress,
+            'address1' => $this->address1,
+            'address2' => $this->address2,
+            'city' => $this->city,
+            'state' => $this->state,
+            'zipcode' => $this->zipcode,
+            'country' => $this->country->name,
         ];
     }
 }

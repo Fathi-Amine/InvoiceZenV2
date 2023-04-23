@@ -26,6 +26,7 @@ class InvoiceResource extends JsonResource
             'customer_id'=>$this->customer_id,
             'customer'=> new UserCustomerResource($this->user),
             'product_id'=>$this->product_id,
+            'product_name'=>$this->product->product_name,
             'status'=>$this->status,
             'gross_price'=>$this->gross_price,
             'discount'=>$this->discount,

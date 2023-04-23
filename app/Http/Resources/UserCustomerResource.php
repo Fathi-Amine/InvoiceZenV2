@@ -21,9 +21,9 @@ class UserCustomerResource extends JsonResource
             'first_name' => $this->customer->first_name,
             'last_name' => $this->customer->last_name,
             'email' => $this->email,
-            'phone'=>$this->phone,
-            'invoiceAddress'=>$this->customer->invoicingAddress,
-            'billingAddress'=>$this->customer->billingAddress,
+            'phone'=>$this->customer->phone,
+            'invoiceAddress'=>new CustomerAddressResource($this->customer->invoicingAddress),
+            'billingAddress'=>new CustomerAddressResource($this->customer->billingAddress),
         ];
     }
 }

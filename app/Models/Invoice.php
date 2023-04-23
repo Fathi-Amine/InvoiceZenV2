@@ -32,8 +32,4 @@ class Invoice extends Model
         return $this->belongsTo(User::class, 'customer_id');
     }
 
-    // public function customer() :BelongsTo
-    // {
-    //     return $this->belongsTo(Customer::class);
-    // }
 }
