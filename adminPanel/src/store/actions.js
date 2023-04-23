@@ -112,3 +112,7 @@ export function getInvoiceCustomers({ commit }) {
             commit('setInvoiceCustomers', response.data)
         })
 }
+
+export function deleteInvoice({ commit }, id) {
+    return axiosClient.delete(`/invoice/${id}`)
+}
