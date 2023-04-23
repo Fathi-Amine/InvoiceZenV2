@@ -24,6 +24,8 @@ use App\Http\Controllers\InvoicesController;
 Route::middleware(['auth:sanctum', 'admin'])->group(function () {
     Route::get('/user', [AuthController::class, 'getUser']);
     Route::post('/logout', [AuthController::class, 'logout']);
+    Route::get('invoice/statuses', [InvoicesController::class, 'getStatuses']);
+    Route::post('invoice/change-status/{invoice}/{status}', [InvoicesController::class, 'changeStatus']);
     Route::apiResource('/invoice', InvoicesController::class);
 });
 Route::apiResource('/product', ProductController::class);

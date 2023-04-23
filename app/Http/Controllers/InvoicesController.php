@@ -77,4 +77,16 @@ class InvoicesController extends Controller
     public function getInvoiceCustomers(){
         return Customer::all();
     }
+
+    public function getStatuses()
+    {
+        return InvoiceStatus::getStatuses();
+    }
+
+    public function changeStatus(Invoice $invoice, $status){
+
+        $invoice->status = $status;
+        $invoice->save();
+        return response('', 200);
+    }
 }

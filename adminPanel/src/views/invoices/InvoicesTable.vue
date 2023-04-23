@@ -48,7 +48,15 @@
                         <td class="border-b p-2">{{ invoice.serial_number }}</td>
                         <td class="border-b p-2">{{ invoice.due_date }}</td>
                         <td class="border-b p-2">{{ invoice.product_name}}</td>
-                        <td class="border-b p-2">{{ invoice.status }}</td>
+                        <td class="border-b p-2">
+                            <span class="py-1 px-2 rounded"
+                                :class="{'bg-emerald-500' : invoice.status === 'paid',
+                                 'bg-red-500' : invoice.status === 'cancelled',
+                                 'bg-yellow-500' : invoice.status === 'processing',
+                                 'bg-indigo-500' : invoice.status === 'completed',
+                                'bg-gray-500' : invoice.status === 'draft'
+                                } ">
+                                {{ invoice.status }}</span></td>
                         <td class="border-b p-2">{{ invoice.total }}</td>
                         <td class="border-b p-2">{{ invoice.updated_at }}</td>
                         <td class="border-b p-2 ">
