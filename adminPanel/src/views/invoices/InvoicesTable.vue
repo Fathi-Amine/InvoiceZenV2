@@ -69,8 +69,7 @@
                                     class="absolute z-10 right-0 mt-2 w-32 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                                     <div class="px-1 py-1">
                                         <MenuItem v-slot="{ active }">
-                                           <router-link>
-                                            <button :class="[
+                                            <router-link :to="{name: 'app.invoices.view', params:{id: invoice.id}}" :class="[
                                                 active ? 'bg-theme-primary text-clr-primary' : 'text-indigo-600',
                                                 'group flex w-full items-center rounded-md px-2 py-2 text-sm',
                                             ]" @click="viewInvoice(invoice)">
@@ -80,8 +79,7 @@
                                                 </svg>
 
                                                 View
-                                            </button>
-                                           </router-link>
+                                            </router-link>
                                         </MenuItem>
                                         <MenuItem v-slot="{ active }">
                                         <button :class="[

@@ -117,6 +117,6 @@ export function deleteInvoice({ commit }, id) {
     return axiosClient.delete(`/invoice/${id}`)
 }
 
-export function getInvoice({ }, id) {
+export function getInvoice({commit }, id) {
     return axiosClient.get(`/invoice/${id}`)
 }

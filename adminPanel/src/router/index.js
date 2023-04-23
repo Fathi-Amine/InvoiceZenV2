@@ -3,6 +3,7 @@ import AppLayout from '../components/AppLayout.vue';
 import Dashboard from '../views/Dashboard.vue';
 import Products from '../views/products/Products.vue';
 import Invoices from '../views/invoices/Invoices.vue';
+import InvoiceView from '../views/invoices/InvoiceView.vue'
 import Login from '../views/Login.vue';
 import RequestPasswordReset from '../views/RequestPasswordReset.vue';
 import ResetPassword from '../views/ResetPassword.vue';
@@ -33,6 +34,11 @@ const routes = [
                 path: 'invoices',
                 name: 'app.invoices',
                 component: Invoices
+            },
+            {
+                path: 'invoice/:id',
+                name: 'app.invoices.view',
+                component: InvoiceView
             },
         ]
     }
