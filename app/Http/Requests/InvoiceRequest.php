@@ -25,7 +25,6 @@ class InvoiceRequest extends FormRequest
             //
             'serial_number'=>['required'],
             'invoice_Date'=> ['required'],
-            'due_date'=>['required'],
             'customer_id'=>['required', 'integer', 'exists:customers,user_id'],
             'product_id'=>['required', 'integer', 'exists:products,id'],
             'gross_price'=>['required', 'numeric'],

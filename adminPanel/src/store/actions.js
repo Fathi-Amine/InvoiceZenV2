@@ -69,7 +69,7 @@ export function deleteProduct({ commit }, id) {
 }
 
 
-export function getInvoices({commit},{url=null,search = "", perPage = 5,sort_field, sort_direction}){
+export function getInvoices({commit},{url=null,search = "", perPage = 5,sort_field, sort_direction} = {}){
     commit('setInvoices', [true])
     url = url || '/invoice'
     return axiosClient.get(url,{
@@ -87,4 +87,28 @@ export function getInvoices({commit},{url=null,search = "", perPage = 5,sort_fie
     .catch(() => {
         commit('setInvoices', [false]);
     })
+}
+
+export function createInvoice({ commit }, invoice) {
+    return axiosClient.post('/invoice', invoice)
+}
+
+export function updateInvoice({ commit }, invoice) {
+    const id = invoice.id;
+    invoice._method = 'PUT';
+    return axiosClient.post(`/invoice/${id}`, invoice)
+}
+
+export function getInvoiceProducts({ commit }) {
+    return axiosClient.get('/invoiceProducts')
+        .then(response => {
+            commit('setInvoiceProducts', response.data)
+        })
+}
+
+export function getInvoiceCustomers({ commit }) {
+    return axiosClient.get('/invoiceCustomers')
+        .then(response => {
+            commit('setInvoiceCustomers', response.data)
+        })
 }

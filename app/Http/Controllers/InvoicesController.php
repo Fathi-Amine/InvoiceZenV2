@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\InvoiceStatus;
 use App\Models\Invoice;
 use App\Http\Requests\InvoiceRequest;
 use App\Http\Resources\InvoiceResource;
 use App\Http\Resources\InvoiceListResource;
+use App\Models\Customer;
 
 class InvoicesController extends Controller
 {
@@ -33,8 +35,13 @@ class InvoicesController extends Controller
     public function store(InvoiceRequest $request)
     {
         //
+        $invoice_data = $request->validated();
+        $invoice_data["status"] = InvoiceStatus::Draft->value;
+        $invoice_data["created_by"] = $request->user()->id;
+        $invoice_data["updated_by"] = $request->user()->id;
+        $invoice = Invoice::create($invoice_data);
 
-        return new InvoiceResource(Invoice::create($request->validated()));
+        return new InvoiceResource($invoice);
     }
 
     /**
@@ -65,5 +72,9 @@ class InvoicesController extends Controller
 
         $invoice->delete();
         return response()->noContent();
+    }
+
+    public function getInvoiceCustomers(){
+        return Customer::all();
     }
 }

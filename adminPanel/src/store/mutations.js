@@ -50,3 +50,13 @@ export function setInvoices(state, [loading,response = null]){
 
     state.invoices.loading = loading;
 }
+
+export function setInvoiceProducts(state, invoiceProducts) {
+    console.log(invoiceProducts)
+    state.invoiceProducts.data = invoiceProducts;
+}
+
+export function setInvoiceCustomers(state, invoiceCustomers) {
+    console.log(invoiceCustomers)
+    state.invoiceCustomers.data = invoiceCustomers;
+}

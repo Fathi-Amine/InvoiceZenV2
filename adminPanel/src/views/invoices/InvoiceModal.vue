@@ -35,24 +35,26 @@
                                     <small class="ml-1">Invoice Date</small>
                                     <CustomInput type="date" class="mb-2" v-model="invoice.invoice_Date"
                                         label="Invoice Date"/>
-                                    <!-- <div>
+                                    <div>
                                         <label class="sr-only">Product:</label>
                                         <select id="product-select" v-model="invoice.product_id"
                                             class="block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-theme-primary focus:border-theme-primary focus:z-10 sm:text-sm rounded">
                                             <option value="">Select a Product</option>
-                                            <option v-for="product in products.data" :key="product.id" :value="product.id">
-                                                {{ product.name }}</option>
+                                           
+                                            <option v-for="product in invoiceProducts.data" :key="product.id" :value="product.id">
+                                                
+                                                {{ product.product_name }}</option>
                                         </select>
-                                    </div> -->
-                                    <!-- <div>
+                                    </div>
+                                    <div>
                                         <label class="sr-only">Customer:</label>
                                         <select id="customer-select" v-model="invoice.customer_id"
-                                            class="block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-theme-primary focus:border-theme-primary focus:z-10 sm:text-sm rounded">
+                                            class="block w-full px-3 py-2 mt-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-theme-primary focus:border-theme-primary focus:z-10 sm:text-sm rounded">
                                             <option value="">Select a Customer</option>
-                                            <option v-for="customer in customers.data" :key="customer.id" :value="customer.id">
+                                            <option v-for="customer in invoiceCustomers.data" :key="customer.user_id" :value="customer.user_id">
                                                 {{ customer.first_name }} {{ customer.last_name }}</option>
                                         </select>
-                                    </div> -->
+                                    </div>
                                     <CustomInput type="number" class="mb-2" v-model="invoice.gross_price"
                                         label="Gross Price" />
                                     <CustomInput type="number" class="mb-2" v-model="invoice.discount"
@@ -98,7 +100,7 @@ import {
 import Spinner from '../../components/core/Spinner.vue';
 import store from '../../store/index';
 import CustomInput from '../../components/core/CustomInput.vue';
-// import { getProducts } from '../../store/actions';
+import { getInvoices } from '../../store/actions';
 
 const loading = ref(false);
 
@@ -111,7 +113,6 @@ const invoice = ref({
     due_date: props.invoice.due_date,
     customer_id: props.invoice.customer_id,
     product_id: props.invoice.invoice_Date,
-    status: props.invoice.status,
     gross_price: props.invoice.gross_price,
     discount: props.invoice.discount,
     TVA: props.invoice.TVA,
@@ -121,7 +122,8 @@ const invoice = ref({
     payment_date: props.invoice.invoice_Date,
 })
 
-// const products = computed(() => store.state.products)
+const invoiceProducts = computed(() => store.state.invoiceProducts);
+const invoiceCustomers = computed(()=> store.state.invoiceCustomers)
 
 const props = defineProps({
     modelValue: Boolean,
@@ -137,10 +139,10 @@ const show = computed({
     get: () => props.modelValue,
     set: (value) => emit('update:modelValue', value)
 })
-// onMounted(() => {
-//     // getProducts();
-//     getCustomers();
-// })
+onMounted(() => {
+    getInvoiceProducts();
+    getInvoiceCustomers();
+})
 
 onUpdated(() => {
     invoice.value = {
@@ -190,14 +192,14 @@ function onSubmit() {
     }
 }
 
-// function getProducts() {
-//     store.dispatch('getProducts');
-// }
+function getInvoiceProducts() {
+    store.dispatch('getInvoiceProducts');
+}
 
-// function getCustomers(){
-//     store.dispatch('getCustomers');
+function getInvoiceCustomers(){
+    store.dispatch('getInvoiceCustomers');
 
-// }
+}
 
 </script>
   

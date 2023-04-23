@@ -75,4 +75,9 @@ class ProductController extends Controller
 
         return Section::all();
     }
+
+    public function getInvoiceProducts(){
+
+        return Product::all();
+    }
 }

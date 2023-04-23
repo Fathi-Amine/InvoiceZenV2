@@ -24,9 +24,11 @@ use App\Http\Controllers\InvoicesController;
 Route::middleware(['auth:sanctum', 'admin'])->group(function () {
     Route::get('/user', [AuthController::class, 'getUser']);
     Route::post('/logout', [AuthController::class, 'logout']);
+    Route::apiResource('/invoice', InvoicesController::class);
 });
 Route::apiResource('/product', ProductController::class);
-Route::apiResource('/invoice', InvoicesController::class);
 Route::get('/sections', [ProductController::class, 'getSections']);
+Route::get('/invoiceProducts', [ProductController::class, 'getInvoiceProducts']);
+Route::get('/invoiceCustomers', [InvoicesController::class, 'getInvoiceCustomers']);
 
 Route::post('/login', [AuthController::class, 'login']);
