@@ -20,6 +20,7 @@ class InvoiceListResource extends JsonResource
             'due_date'=>$this->due_date,
             'product_name' => $this->product->product_name,
             'product_id'=>$this->product_id,
+            'customer'=> new UserCustomerResource($this->user),
             'status'=>$this->status,
             'total'=>$this->total,
             'updated_at'=>(new \DateTime($this->created_at))->format('Y-m-d H:i:s'),

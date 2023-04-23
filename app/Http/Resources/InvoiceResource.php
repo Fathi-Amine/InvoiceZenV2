@@ -4,6 +4,8 @@ namespace App\Http\Resources;
 
 use DateTime;
 use Illuminate\Http\Request;
+use App\Http\Resources\UserResource;
+use App\Http\Resources\UserCustomerResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class InvoiceResource extends JsonResource
@@ -22,6 +24,7 @@ class InvoiceResource extends JsonResource
             'invoice_Date'=>$this->invoice_Date,
             'due_date'=>$this->due_date,
             'customer_id'=>$this->customer_id,
+            'customer'=> new UserCustomerResource($this->user),
             'product_id'=>$this->product_id,
             'status'=>$this->status,
             'gross_price'=>$this->gross_price,

@@ -6,7 +6,7 @@
             Add Invoice
         </button>
     </div>
-    <InvoicesTable @click-edit="editInvoice"/>
+    <InvoicesTable @click-edit="editInvoice" @click-view="viewInvoice"/>
     <InvoiceModal v-model="showModal" :invoice="invoiceModel" @close="onModalClose"/>
 </template>
 
@@ -46,6 +46,10 @@ function editInvoice(invoice){
         invoiceModel.value = data
         showInvoiceModal()
     })
+}
+
+function viewInvoice(invoice){
+    console.log(invoice);
 }
 
 function onModalClose(){

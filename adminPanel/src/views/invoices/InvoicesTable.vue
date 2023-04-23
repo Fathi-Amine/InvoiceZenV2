@@ -69,6 +69,21 @@
                                     class="absolute z-10 right-0 mt-2 w-32 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                                     <div class="px-1 py-1">
                                         <MenuItem v-slot="{ active }">
+                                           <router-link>
+                                            <button :class="[
+                                                active ? 'bg-theme-primary text-clr-primary' : 'text-indigo-600',
+                                                'group flex w-full items-center rounded-md px-2 py-2 text-sm',
+                                            ]" @click="viewInvoice(invoice)">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                                                    <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" />
+                                                    <path fill-rule="evenodd" d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 010-1.113zM17.25 12a5.25 5.25 0 11-10.5 0 5.25 5.25 0 0110.5 0z" clip-rule="evenodd" />
+                                                </svg>
+
+                                                View
+                                            </button>
+                                           </router-link>
+                                        </MenuItem>
+                                        <MenuItem v-slot="{ active }">
                                         <button :class="[
                                             active ? 'bg-theme-primary text-clr-primary' : 'text-indigo-600',
                                             'group flex w-full items-center rounded-md px-2 py-2 text-sm',
@@ -127,7 +142,7 @@ import ThCell from '../../components/core/table/ThCell.vue';
 import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue';
 import { EllipsisVerticalIcon, PencilIcon, TrashIcon } from '@heroicons/vue/20/solid'
 
-const emit = defineEmits(['clickEdit'])
+const emit = defineEmits(['clickEdit', 'clickView'])
 const perPage = ref(PRODUCTS_PER_PAGE);
 const search = ref("");
 const sortField = ref("updated_at");
@@ -171,6 +186,10 @@ function sortInvoice(field) {
 
 function editInvoice(invoice){
     emit('clickEdit',invoice)
+}
+
+function viewInvoice(invoice){
+    emit('clickView',invoice)
 }
 
 function deleteInvoice(invoice){
