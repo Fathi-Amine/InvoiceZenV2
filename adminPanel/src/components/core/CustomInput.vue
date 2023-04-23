@@ -11,10 +11,6 @@
                     @input="emit('update:modelValue', $event.target.value)" :class="inputClasses"
                     :placeholder="label"></textarea>
             </template>
-            <template v-else-if="type === 'file'">
-                <input :type="type" :name="name" :required="required" :value="props.modelValue"
-                    @input="emit('change', $event.target.files[0])" :class="inputClasses" :placeholder="label" />
-            </template>
             <template v-else>
                 <input :type="type" :name="name" :required="required" :value="props.modelValue"
                     @input="emit('update:modelValue', $event.target.value)" :class="inputClasses" :placeholder="label"
@@ -33,7 +29,7 @@
 import { computed } from "vue";
 
 const props = defineProps({
-    modelValue: [String, Number, File],
+    modelValue: [String, Number, Date],
     label: String,
     type: {
         type: String,

@@ -17,7 +17,7 @@
                                 class="absolute left-0 top-0 bg-clr-primary right-0 bottom-0 flex items-center justify-center" />
                             <header class="py-3 px-4 flex justify-between items-center">
                                 <DialogTitle as="h3" class="text-lg leading-6 font-medium text-gray-900">
-                                    {{ invoice.id ? `Update product: "${props.invoice.serial_number}"` : 'Create new Product'
+                                    {{ invoice.id ? `Update invoice: "${props.invoice.serial_number}"` : 'Create new Invoice'
                                     }}
                                 </DialogTitle>
                                 <button @click="closeModal()"
@@ -29,13 +29,13 @@
                                     </svg>
                                 </button>
                             </header>
-                            <form @submit.prevent="onSubmit">
-                                <!-- <pre>{{ sections }}</pre> -->
+                             <form @submit.prevent="onSubmit">
                                 <div class="bg-clr-primary px-4 pt-5 pb-4">
-                                    <CustomInput class="mb-2" v-model="invoice.invoice_serial_number" label="Invoice Serial Number" />
+                                    <CustomInput class="mb-2" v-model="invoice.serial_number" label="Invoice Serial Number" />
+                                    <small class="ml-1">Invoice Date</small>
                                     <CustomInput type="date" class="mb-2" v-model="invoice.invoice_Date"
-                                        label="Invoice Date" />
-                                    <div>
+                                        label="Invoice Date"/>
+                                    <!-- <div>
                                         <label class="sr-only">Product:</label>
                                         <select id="product-select" v-model="invoice.product_id"
                                             class="block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-theme-primary focus:border-theme-primary focus:z-10 sm:text-sm rounded">
@@ -43,8 +43,8 @@
                                             <option v-for="product in products.data" :key="product.id" :value="product.id">
                                                 {{ product.name }}</option>
                                         </select>
-                                    </div>
-                                    <div>
+                                    </div> -->
+                                    <!-- <div>
                                         <label class="sr-only">Customer:</label>
                                         <select id="customer-select" v-model="invoice.customer_id"
                                             class="block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-theme-primary focus:border-theme-primary focus:z-10 sm:text-sm rounded">
@@ -52,7 +52,7 @@
                                             <option v-for="customer in customers.data" :key="customer.id" :value="customer.id">
                                                 {{ customer.first_name }} {{ customer.last_name }}</option>
                                         </select>
-                                    </div>
+                                    </div> -->
                                     <CustomInput type="number" class="mb-2" v-model="invoice.gross_price"
                                         label="Gross Price" />
                                     <CustomInput type="number" class="mb-2" v-model="invoice.discount"
@@ -62,7 +62,7 @@
                                     <CustomInput type="number" class="mb-2" v-model="invoice.TVA_rate"
                                     label="TVA_rate" />
                                     <CustomInput type="number" class="mb-2" v-model="invoice.total"
-                                    label="TVA_rate" />
+                                    label="Total" />
                                     <CustomInput type="textarea" class="mb-2" v-model="invoice.note"
                                         label="Note" />
                                 </div>
@@ -121,7 +121,7 @@ const invoice = ref({
     payment_date: props.invoice.invoice_Date,
 })
 
-const products = computed(() => store.state.products)
+// const products = computed(() => store.state.products)
 
 const props = defineProps({
     modelValue: Boolean,
@@ -137,10 +137,10 @@ const show = computed({
     get: () => props.modelValue,
     set: (value) => emit('update:modelValue', value)
 })
-onMounted(() => {
-    // getProducts();
-    getCustomers();
-})
+// onMounted(() => {
+//     // getProducts();
+//     getCustomers();
+// })
 
 onUpdated(() => {
     invoice.value = {
@@ -170,7 +170,7 @@ function closeModal() {
 function onSubmit() {
     loading.value = true;
     if (invoice.value.id) {
-        store.dispatch('updateProduct', invoice.value)
+        store.dispatch('updateInvoice', invoice.value)
             .then(response => {
                 loading.value = false;
                 if (response.status === 200) {
@@ -179,7 +179,7 @@ function onSubmit() {
                 }
             })
     } else {
-        store.dispatch('createProduct', product.value)
+        store.dispatch('createInvoice', invoice.value)
             .then(response => {
                 loading.value = false;
                 if (response.status === 201) {
@@ -190,14 +190,14 @@ function onSubmit() {
     }
 }
 
-function getProducts() {
-    store.dispatch('getProducts');
-}
+// function getProducts() {
+//     store.dispatch('getProducts');
+// }
 
-function getCustomers(){
-    store.dispatch('getCustomers');
+// function getCustomers(){
+//     store.dispatch('getCustomers');
 
-}
+// }
 
 </script>
   
