@@ -33,6 +33,10 @@ const store = {
     },
     invoiceCustomers:{
         data: []
+    },
+    notification:{
+        show: false,
+        message: ""
     }
 }
 

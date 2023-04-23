@@ -120,7 +120,7 @@ onMounted(()=>{
 function onStatusChange(){
     axiosClient.post(`invoice/change-status/${invoice.value.id}/${invoice.value.status}`)
     .then(({data}) => {
-        console.log("Success");
+        store.commit('showNotification', `Invoice Status has been successfully updated into ${invoice.value.status} `)
     })
 }
 </script>

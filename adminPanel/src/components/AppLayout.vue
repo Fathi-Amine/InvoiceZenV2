@@ -13,6 +13,7 @@
     <div v-else class="min-h-full flex justify-center items-center">
         <Spinner />
     </div>
+    <NotificationCard/>
 </template>
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
@@ -21,6 +22,7 @@ import TopNavBar from './TopNavBar.vue';
 import Spinner from './core/Spinner.vue';
 import store from '../store';
 import { computed } from '@vue/reactivity';
+import NotificationCard from './core/NotificationCard.vue';
 
 
 const sidebarOpened = ref(true)

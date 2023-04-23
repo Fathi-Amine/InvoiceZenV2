@@ -60,3 +60,12 @@ export function setInvoiceCustomers(state, invoiceCustomers) {
     console.log(invoiceCustomers)
     state.invoiceCustomers.data = invoiceCustomers;
 }
+
+export function showNotification(state, message){
+    state.notification.show = true;
+    state.notification.message = message;
+}
+export function hideNotification(state, message){
+    state.notification.show = false;
+    state.notification.message = "";
+}
