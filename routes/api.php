@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\InvoicesController;
 
 /*
@@ -29,6 +30,7 @@ Route::middleware(['auth:sanctum', 'admin'])->group(function () {
     Route::post('invoice/change-status/{invoice}/{status}', [InvoicesController::class, 'changeStatus']);
     Route::apiResource('/invoice', InvoicesController::class);
     Route::apiResource('/users', UserController::class);
+    Route::apiResource('/customers', CustomerController::class);
 });
 Route::apiResource('/product', ProductController::class);
 Route::get('/sections', [ProductController::class, 'getSections']);
