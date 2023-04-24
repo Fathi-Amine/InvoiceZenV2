@@ -3,6 +3,7 @@ import AppLayout from '../components/AppLayout.vue';
 import Dashboard from '../views/Dashboard.vue';
 import Products from '../views/products/Products.vue';
 import Users from '../views/Users/Users.vue';
+import Customers from '../views/Customers/Customers.vue';
 import Invoices from '../views/invoices/Invoices.vue';
 import InvoiceView from '../views/invoices/InvoiceView.vue'
 import Login from '../views/Login.vue';
@@ -36,6 +37,11 @@ const routes = [
                 path: 'users',
                 name: 'app.users',
                 component: Users
+            },
+            {
+                path: 'customers',
+                name: 'app.customers',
+                component: Customers
             },
             {
                 path: 'invoices',
