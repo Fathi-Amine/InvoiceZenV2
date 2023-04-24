@@ -80,9 +80,11 @@ const loading = ref(false);
 
 const customer = ref({
     id: props.customer.id,
-    name: props.customer.name,
+    first_name: props.customer.first_name,
+    last_name: props.customer.last_name,
     email: props.customer.email,
-    password: props.customer.password,
+    phone: props.customer.phone,
+    status: props.customer.status,
 })
 
 const props = defineProps({
@@ -103,9 +105,11 @@ const show = computed({
 onUpdated(() => {
     customer.value = {
         id: props.customer.id,
-        name: props.customer.name,
+        first_name: props.customer.first_name,
+        last_name: props.customer.last_name,
         email: props.customer.email,
-        password: props.customer.password,
+        phone: props.customer.phone,
+        status: props.customer.status,
     }
 })
 function closeModal() {

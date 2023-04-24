@@ -16,6 +16,8 @@ class CustomerResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $invoicing = $this->invoicingAddress;
+        $billing = $this->billingAddress;
         return [
             'id' => $this->id,
             'first_name' => $this->first_name,
@@ -23,8 +25,24 @@ class CustomerResource extends JsonResource
             'email' => $this->user->email,
             'phone' => $this->phone,
             'status' => $this->status,
-            'invoiceAddress'=>new CustomerAddressResource($this->customer->invoicingAddress),
-            'billingAddress'=>new CustomerAddressResource($this->customer->billingAddress),
+            'invoicingAddress' => [
+                'id' => $invoicing->id,
+                'address1' => $invoicing->address1,
+                'address2' => $invoicing->address2,
+                'city' => $invoicing->city,
+                'state' => $invoicing->state,
+                'zipcode' => $invoicing->zipcode,
+                'country_code' => $invoicing->country->code,
+            ],
+            'billingAddress' => [
+                'id' => $billing->id,
+                'address1' => $billing->address1,
+                'address2' => $billing->address2,
+                'city' => $billing->city,
+                'state' => $billing->state,
+                'zipcode' => $billing->zipcode,
+                'country_code' => $billing->country->code,
+            ],
             'created_at' => (new \DateTime($this->created_at))->format('Y-m-d H:i:s'),
             'updated_at' => (new \DateTime($this->updated_at))->format('Y-m-d H:i:s'),
         ];

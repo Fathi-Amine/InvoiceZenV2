@@ -94,6 +94,10 @@ export function getAdminUser({commit }, id) {
     return axiosClient.get(`/users/${id}`)
 }
 
+export function getCustomer({commit }, id) {
+    return axiosClient.get(`/customers/${id}`)
+}
+
 export function createProduct({ commit }, product) {
     return axiosClient.post('/product', product)
 }

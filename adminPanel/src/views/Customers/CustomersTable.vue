@@ -48,9 +48,13 @@
                     :style="{ 'animation-delay': `${index * 0.2}s` }">
                     <td class="border-b p-2">{{ customer.id }}</td>
                     <td class="border-b p-2 max-w-[200px] whitespace-nowrap overflow-hidden text-ellipsis">{{
-                            customer.name }}</td>
+                            customer.first_name }} {{ customer.last_name }}</td>
                     <td class="border-b p-2 max-w-[200px] whitespace-nowrap overflow-hidden text-ellipsis">{{
                     customer.email }}</td>
+                    <td class="border-b p-2 max-w-[200px] whitespace-nowrap overflow-hidden text-ellipsis">{{
+                    customer.phone }}</td>
+                    <td class="border-b p-2 max-w-[200px] whitespace-nowrap overflow-hidden text-ellipsis">{{
+                    customer.status }}</td>
                     <td class="border-b p-2">{{ customer.created_at }}</td>
                     <td class="border-b p-2">
                         <Menu as="div" class="relative inline-block text-left">

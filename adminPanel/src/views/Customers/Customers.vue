@@ -26,7 +26,7 @@ function showCustomerModal() {
 }
 
 function editCustomer(customer) {
-    store.dispatch('getAdminCustomer', customer.id)
+    store.dispatch('getCustomer', customer.id)
         .then(({ data }) => {
             customerModel.value = data;
             showCustomerModal()
