@@ -71,3 +71,58 @@ function onModalClose(){
     }
 }
 </script>
+
+
+<!-- <template>
+    <div class="flex items-center justify-between mb-3 animate-fade-in-down">
+        <h1 class="text-3xl font-semibold">Invoices</h1>
+        <button type="submit" @click="showInvoiceModal"
+            class="flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-clr-primary bg-theme-primary hover:bg-indigo-500">
+            Add Invoice
+        </button>
+    </div>
+    <InvoiceModal v-model="showModal" :product="invoiceModel" @close="onModalClose"></InvoiceModal>
+    <InvoicesTable @click-edit="editInvoice" />
+</template>
+<script setup>
+import InvoicesTable from './InvoicesTable.vue';
+import InvoiceModal from './InvoiceModal.vue';
+
+import store from '../../store';
+
+const showModal = ref(false);
+
+
+
+function showInvoiceModal() {
+    showModal.value = true;
+}
+
+function editInvoice(Invoice) {
+    store.dispatch('getInvoice', invoice.id)
+        .then(({ data }) => {
+            invoiceModel.value = data;
+            showInvoiceModal()
+        })
+}
+
+function onModalClose() {
+    productModel.value = {
+    id: '',
+    serial_number: '',
+    invoice_Date: '',
+    due_date: '',
+    customer_id: '',
+    product_id: '',
+    status: '',
+    gross_price: '',
+    discount: '',
+    TVA_rate: '',
+    total: '',
+    note: '',
+    payment_date: '',
+    }
+}
+
+</script>
+<style scoped></style> -->

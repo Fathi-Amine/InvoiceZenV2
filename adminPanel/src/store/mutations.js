@@ -4,10 +4,6 @@ export function setUser(state, user) {
     state.user.data = user;
 }
 
-export function setCountries(state, countries){
-    state.countries = countries.data;
-}
-
 export function setToken(state, token) {
     console.log(token)
     state.user.token = token;

@@ -3,7 +3,6 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
-use App\Enums\CustomerStatus;
 use App\Http\Resources\CustomerAddressResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -20,12 +19,12 @@ class CustomerResource extends JsonResource
         $invoicing = $this->invoicingAddress;
         $billing = $this->billingAddress;
         return [
-            'id' => $this->user_id,
+            'id' => $this->id,
             'first_name' => $this->first_name,
             'last_name' => $this->last_name,
             'email' => $this->user->email,
             'phone' => $this->phone,
-            'status' =>  $this->status === CustomerStatus::Active->value,
+            'status' => $this->status,
             'invoicingAddress' => [
                 'id' => $invoicing->id,
                 'address1' => $invoicing->address1,
@@ -34,7 +33,6 @@ class CustomerResource extends JsonResource
                 'state' => $invoicing->state,
                 'zipcode' => $invoicing->zipcode,
                 'country_code' => $invoicing->country->code,
-                'country' => $invoicing->country->name,
             ],
             'billingAddress' => [
                 'id' => $billing->id,
@@ -44,7 +42,6 @@ class CustomerResource extends JsonResource
                 'state' => $billing->state,
                 'zipcode' => $billing->zipcode,
                 'country_code' => $billing->country->code,
-                'country' => $billing->country->name,
             ],
             'created_at' => (new \DateTime($this->created_at))->format('Y-m-d H:i:s'),
             'updated_at' => (new \DateTime($this->updated_at))->format('Y-m-d H:i:s'),

@@ -9,7 +9,6 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InvoicesController;
-use App\Models\Customer;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +32,7 @@ Route::middleware(['auth:sanctum', 'admin'])->group(function () {
     Route::apiResource('/invoice', InvoicesController::class);
     Route::apiResource('/users', UserController::class);
     Route::apiResource('/customers', CustomerController::class);
+<<<<<<< HEAD
     Route::get('/countries', [CustomerController::class, 'countries']);
 
     //Dashboard actions
@@ -41,6 +41,8 @@ Route::middleware(['auth:sanctum', 'admin'])->group(function () {
     Route::get('/dashboard/invoices-count', [DashboardController::class, 'adminInvoices']);
     Route::get('/dashboard/invoices-count', [DashboardController::class, 'paidInvoices']);
     Route::get('/dashboard/income-amount', [DashboardController::class, 'totalIncome']);
+=======
+>>>>>>> parent of 385df65 (Customre crud)
 });
 Route::apiResource('/product', ProductController::class);
 Route::get('/sections', [ProductController::class, 'getSections']);

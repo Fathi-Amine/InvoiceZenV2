@@ -7,13 +7,6 @@ export function getUser({ commit }) {
     })
 }
 
-export function getCountries({commit}) {
-    return axiosClient.get('/countries')
-    .then(({data})=>{
-        commit('setCountries', data)
-    })
-}
-
 export function login({ commit }, data) {
 
     return axiosClient.post('/login', data).then(({ data }) => {

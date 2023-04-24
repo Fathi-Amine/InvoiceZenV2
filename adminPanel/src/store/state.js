@@ -57,8 +57,7 @@ const store = {
     notification:{
         show: false,
         message: ""
-    },
-    countries: [],
+    }
 }
 
 export default store

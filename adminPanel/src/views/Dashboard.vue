@@ -70,7 +70,7 @@
     <div class="bg-white py-6 px-5 rounded-lg shadow flex flex-col items-center justify-center">
       <label class="text-lg font-semibold block mb-2">Invoices by Country</label>
       <template>
-        <DoughnutChart />
+        <!-- <DoughnutChart /> -->
       </template>
       <Spinner />
     </div>
@@ -93,6 +93,5 @@
   </div>
 </template>
 <script setup>
-import DoughnutChart from '../components/core/Charts/Doughnut.vue'
 </script>
 <style scoped></style>
