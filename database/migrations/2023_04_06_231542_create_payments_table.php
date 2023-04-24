@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('invoice_id')->references('id')->on('invoices');
+            $table->foreignId('invoice_id')->references('id')->on('invoices')->onDelete('cascade');
             $table->decimal('amount', 10, 2);
             $table->string('status', 45);
             $table->string('type', 45);
