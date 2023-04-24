@@ -8,6 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\InvoicesController;
+use App\Models\Customer;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +32,7 @@ Route::middleware(['auth:sanctum', 'admin'])->group(function () {
     Route::apiResource('/invoice', InvoicesController::class);
     Route::apiResource('/users', UserController::class);
     Route::apiResource('/customers', CustomerController::class);
+    Route::get('/countries', [CustomerController::class, 'countries']);
 });
 Route::apiResource('/product', ProductController::class);
 Route::get('/sections', [ProductController::class, 'getSections']);

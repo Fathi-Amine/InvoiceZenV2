@@ -35,6 +35,7 @@ const currentUser = computed(() => {
 })
 onMounted(() => {
     store.dispatch('getUser');
+    store.dispatch('getCountries')
     handleSidebar();
 
     window.addEventListener('resize', handleSidebar)
