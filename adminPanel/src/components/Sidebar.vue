@@ -21,7 +21,7 @@
             </span>
             <span class="text-sm">Invoices</span>
         </router-link>
-        <router-link :to="{ name: 'app.dashboard' }"
+        <router-link :to="{ name: 'app.users' }"
             class="flex items-center hover:bg-clr-primary hover:text-theme-primary py-1 px-3 rounded">
             <span class="mr-2">
                 <UserGroupIcon class="w-5" />

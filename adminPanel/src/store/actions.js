@@ -43,6 +43,24 @@ export function getProducts({ commit }, { url = null, search = "", perPage = 5, 
         })
 }
 
+export function getUsers({ commit }, { url = null, search = "", perPage = 5, sort_field, sort_direction } = {}) {
+    commit('setUsers', [true])
+    url = url || '/users'
+    return axiosClient.get(url, {
+        params: {
+            search,
+            per_page: perPage,
+            sort_field,
+            sort_direction
+        }
+    })
+        .then(response => {
+            commit('setUsers', [false, response.data])
+        }).catch(() => {
+            commit('setUsers', [false])
+        })
+}
+
 export function getSections({ commit }) {
     return axiosClient.get('/sections')
         .then(response => {
@@ -50,12 +68,20 @@ export function getSections({ commit }) {
         })
 }
 
-export function getProduct({ }, id) {
+export function getProduct({ commit }, id) {
     return axiosClient.get(`/product/${id}`)
+}
+
+export function getAdminUser({commit }, id) {
+    return axiosClient.get(`/users/${id}`)
 }
 
 export function createProduct({ commit }, product) {
     return axiosClient.post('/product', product)
+}
+
+export function createUser({ commit }, user) {
+    return axiosClient.post('/users', user)
 }
 
 export function updateProduct({ commit }, product) {
@@ -64,8 +90,18 @@ export function updateProduct({ commit }, product) {
     return axiosClient.post(`/product/${id}`, product)
 }
 
+export function updateUser({ commit }, user) {
+    const id = user.id;
+    user._method = 'PUT';
+    return axiosClient.post(`/users/${id}`, user)
+}
+
 export function deleteProduct({ commit }, id) {
     return axiosClient.delete(`/product/${id}`)
+}
+
+export function deleteUser({ commit }, id) {
+    return axiosClient.delete(`/users/${id}`)
 }
 
 

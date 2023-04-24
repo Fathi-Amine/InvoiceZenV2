@@ -36,6 +36,13 @@ class AuthController extends Controller
             ], 403);
         }
 
+        if (!$user->email_verified_at) {
+            Auth::logout();
+            return response([
+                'message' => 'Your email address is not verified'
+            ], 403);
+        }
+
         $token = $user->createToken('main')->plainTextToken;
 
         return response([

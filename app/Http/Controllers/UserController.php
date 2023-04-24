@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Models\Section;
 use App\Http\Resources\UserResource;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
@@ -24,7 +23,7 @@ class UserController extends Controller
         $query = User::query();
         $query->orderBy($sortField, $sortDirection);
         if ($search) {
-            $query->where('User_name', 'like', "%{$search}%");
+            $query->where('name', 'like', "%{$search}%");
         }
         return UserResource::collection($query->paginate($perPage));
     }
@@ -37,12 +36,22 @@ class UserController extends Controller
         //
         $data = $request->validated();
         $data['is_admin'] = true;
+        $data['email_verified_at'] = date('Y-m-d H:i:s');
         $data['password'] = Hash::make($data['password']);
+        echo '<pre>';
+        var_dump($data);
+        echo '</pre>';
         $user = User::create($data);
 
         return new UserResource($user);
     }
 
+
+    public function show(User $user)
+    {
+
+        return new UserResource($user);
+    }
 
     /**
      * Update the specified resource in storage.

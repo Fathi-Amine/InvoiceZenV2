@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import AppLayout from '../components/AppLayout.vue';
 import Dashboard from '../views/Dashboard.vue';
 import Products from '../views/products/Products.vue';
+import Users from '../views/Users/Users.vue';
 import Invoices from '../views/invoices/Invoices.vue';
 import InvoiceView from '../views/invoices/InvoiceView.vue'
 import Login from '../views/Login.vue';
@@ -29,6 +30,12 @@ const routes = [
                 path: 'products',
                 name: 'app.products',
                 component: Products
+            },
+
+            {
+                path: 'users',
+                name: 'app.users',
+                component: Users
             },
             {
                 path: 'invoices',
