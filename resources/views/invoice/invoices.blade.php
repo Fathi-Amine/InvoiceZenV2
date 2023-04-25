@@ -1,12 +1,12 @@
 <x-app-layout>
     <div class="container lg:w-2/3 xl:w-2/3 mx-auto">
-        <h1 class="text-3xl font-bold mb-6">My Orders</h1>
+        <h1 class="text-3xl font-bold mb-6">My Invoices</h1>
 
         <div class="bg-white p-3 rounded-md shadow-md">
           <table class="table table-auto w-full">
             <thead class="border-b-2">
               <tr class="text-left">
-                <th>Order</th>
+                <th>Invoice</th>
                 <th>Date</th>
                 <th>Status</th>
                 <th>Total</th>
@@ -31,9 +31,13 @@
                 </td>
                 <td>{{ $invoice->total}}</td>
                 <td class="flex gap-3">
-                  <div x-data="{open: false}">
-                    <button
-                      @click="open = true"
+                  <div>
+                    @if(!$invoice->isPaid())
+                    <form action="{{ route('invoice.archive', $invoice)}}" method="POST">
+                      @method('DELETE')
+                      @csrf
+                      <button
+                      @click="open = false"
                       class="btn-primary bg-emerald-500 hover:bg-emerald-600 active:bg-emerald-700 py-1 px-2 flex items-center"
                     >
                       <svg
@@ -50,63 +54,34 @@
                           d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
                         />
                       </svg>
-                      Invoice
+                      Archive
                     </button>
-                    <template x-teleport="body">
-                      <!-- Backdrop -->
-                      <div
-                        x-show="open"
-                        class="fixed flex justify-center items-center left-0 top-0 bottom-0 right-0 z-10 bg-black/80"
+                    </form>
+                    @elseif($invoice->isPaid())
+                    <a
+                    href="{{route('invoices.view', $invoice)}}"
+                      class="btn-primary bg-blue-500 hover:bg-blue-600 active:bg-emerald-700 py-1 px-2 flex items-center"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="h-5 w-5 mr-1"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        stroke-width="2"
                       >
-                        <!-- Dialog -->
-                        <div
-                          x-show="open"
-                          x-transition
-                          @click.outside="open = false"
-                          class="w-[90%] md:w-1/2 bg-white rounded-lg"
-                        >
-                          <!-- Modal Title -->
-                          <div
-                            class="py-2 px-4 text-lg font-semibold bg-gray-100 rounded-t-lg flex items-center justify-between"
-                          >
-                            <h2>Modal Title</h2>
-                            <button @click="open = false">
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                class="h-6 w-6"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                                stroke-width="2"
-                              >
-                                <path
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                  d="M6 18L18 6M6 6l12 12"
-                                />
-                              </svg>
-                            </button>
-                          </div>
-                          <!-- Modal Body -->
-                          <div class="p-4">
-                              Invoice Content
-                          </div>
-                          <!-- Modal Footer -->
-                          <div
-                            class="py-2 px-4 text-lg flex justify-end font-semibold bg-gray-100 rounded-b-lg"
-                          >
-                            <button
-                              @click="open = false"
-                              class="inline-flex items-center py-1 px-3 bg-gray-300 hover:bg-opacity-95 text-gray-800 rounded-md shadow"
-                            >
-                              Close
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </template>
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                        />
+                      </svg>
+                      View Invoice
+                    </a>
+                    @endif
+                    
                   </div>
-                  @if(!$invoice->isPaid())
+                  @if(!$invoice->isPaid() && !$invoice->isCancelled())
                   <form action="{{ route('cart.checkout-invoice', $invoice)}}" method="POST">
                     @csrf
                     <button class="btn-primary py-1 px-2 flex items-center">

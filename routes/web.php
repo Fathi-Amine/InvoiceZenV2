@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ArchiveController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProfileController;
@@ -41,5 +42,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
     Route::get('/checkout/failure', [CheckoutController::class, 'failure'])->name('checkout.failure');
     Route::post('/checkout',[CheckoutController::class, 'checkout'])->name('invoice.checkout');
+    Route::delete('/archive-invoice/{invoice}', [ArchiveController::class, 'destroy'])->name('invoice.archive');
+    Route::get('/archived-invoices', [ArchiveController::class, 'index'])->name('invoices.archived');
 });
 require __DIR__ . '/auth.php';

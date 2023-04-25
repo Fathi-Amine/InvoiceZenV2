@@ -17,6 +17,7 @@ class CheckoutController extends Controller
         \Stripe\Stripe::setApiKey(getenv('STRIPE_SECRET_KEY'));
         $user = Auth::user();
         $latest_invoice = Invoice::where('customer_id', $user->id)
+                          ->where('status', 'draft')
                           ->orderBy('created_at', 'desc')
                           ->first();
         $line_items = [];

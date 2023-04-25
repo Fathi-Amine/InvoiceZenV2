@@ -7,10 +7,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Invoice extends Model
 {
     use HasFactory;
+    use SoftDeletes;
     protected $fillable = ['serial_number', 'invoice_Date', 'due_date', 'customer_id', 'product_id', 'status', 'gross_price', 'discount', 'TVA', 'TVA_rate', 'total', 'note', 'payment_date','created_by', 'updated_by', 'deleted_at'];
 
 
@@ -21,6 +23,11 @@ class Invoice extends Model
     public function isPaid()
     {
         return $this->status === InvoiceStatus::Paid->value;
+    }
+
+    public function isCancelled()
+    {
+        return $this->status === InvoiceStatus::Cancelled->value;
     }
 
     public function payment() :HasOne

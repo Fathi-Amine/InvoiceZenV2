@@ -16,8 +16,12 @@ class InvoiceController extends Controller
     {
         //
         $user = Auth::user();
-        $invoices = Invoice::where('customer_id', $user->id)->get();
-        return view('dashboard', ['invoices' => $invoices]);
+        $latest_invoice = Invoice::where('customer_id', $user->id)
+                          ->where('status', 'draft')
+                          ->orderBy('created_at', 'desc')
+                          ->first();
+
+        return view('dashboard', ['invoice' => $latest_invoice]);
     }
 
     public function index(Request $request){

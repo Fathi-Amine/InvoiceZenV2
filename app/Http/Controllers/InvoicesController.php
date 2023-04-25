@@ -29,6 +29,7 @@ class InvoicesController extends Controller
         return InvoiceListResource::collection($query->paginate($perPage));
     }
 
+    
     /**
      * Store a newly created resource in storage.
      */
